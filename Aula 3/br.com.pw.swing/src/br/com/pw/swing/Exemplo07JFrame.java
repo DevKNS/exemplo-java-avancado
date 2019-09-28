@@ -59,6 +59,11 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
         jLabel2.setText("Categoria");
 
         jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Galinha ", "Ovelha", "Pato", "Porco", "Vaca" }));
+        jComboBoxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCategoriaActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel3.setText("Quantidade");
@@ -214,16 +219,15 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
                                     .addComponent(jRadioButtonNao))
                                 .addGap(2, 2, 2))
                             .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(23, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonApagar)
-                            .addComponent(jButtonEditar))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButtonEditar))))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -236,6 +240,8 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         String nome = jTextFieldNome.getText();
+        String modelo  = jComboBoxMarca.getSelectedItem().trim();
+        String cor = 
         int quantidade = Integer.parseInt(jSpinnerQuantidade.getValue().toString());
         double preco = Double.parseDouble(jFormattedTextFieldValor.getValue()
                 .toString()
@@ -257,7 +263,7 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
         }
         String categoria = jComboBoxCategoria.getSelectedItem().toString();
         DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
-
+        
         if (editando == false) {
             codigo = codigo++;
             modelo.addRow(new Object[]{
@@ -288,7 +294,7 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION);
 
         if (opcao == JOptionPane.YES_NO_OPTION) {
-            DefaultTableModel modelo = (DefaultTableModel) jTable.getModel();
+            DefaultTableModel modeloTabela = (DefaultTableModel) jTable.getModel();
             modelo.removeRow(posicaoLinhaSelecionada);
             JOptionPane.showMessageDialog(this, "Registro Apagado com Sucesso");
         }
@@ -306,7 +312,9 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
         String categoria = jTable.getValueAt(linhaSelecionada, 2).toString();
         int quantidade = Integer.parseInt(jTable.getValueAt(linhaSelecionada, 3).toString());
         double valor = Double.parseDouble(jTable.getValueAt(linhaSelecionada, 4).toString());
-        String statusPago = jTable.getValueAt(linhaSelecionada, 6).toString();
+        String statusPago = jTableMostrar.getValueAt(linhaSelecionada, 6).toString();
+        double quilometragem = Double.parseDouble(jTableMostrar.getValueAt(linhaSelecionada,7).toString());
+        
 
         jTextFieldNome.setText(nome);
         jComboBoxCategoria.setSelectedItem(categoria);
@@ -319,6 +327,10 @@ public class Exemplo07JFrame extends javax.swing.JFrame {
             jRadioButtonNao.setSelected(true);
         }
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jComboBoxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCategoriaActionPerformed
 
     /**
      * @param args the command line arguments
